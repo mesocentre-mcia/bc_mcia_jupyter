@@ -41,6 +41,10 @@ PASSWORD_SHA1="$(echo -n "${password}${SALT}" | openssl dgst -sha1 | awk '{print
 # `script.sh.erb` file when launching the Jupyter Notebook server.
 export CONFIG_FILE="${PWD}/config.py"
 
+
+# Notebook root directory
+export NOTEBOOK_ROOT="${NOTEBOOK_ROOT:-${HOME}}"
+
 # Generate Jupyter configuration file with secure file permissions
 (
 umask 077
@@ -52,7 +56,7 @@ c.NotebookApp.password = u'sha1:${SALT}:${PASSWORD_SHA1}'
 c.NotebookApp.base_url = '/node/${host}/${port}/'
 c.NotebookApp.open_browser = False
 c.NotebookApp.allow_origin = '*'
-c.NotebookApp.notebook_dir = '${HOME}'
+c.NotebookApp.notebook_dir = '${NOTEBOOK_ROOT}'
 c.NotebookApp.disable_check_xsrf = True
 EOL
 )

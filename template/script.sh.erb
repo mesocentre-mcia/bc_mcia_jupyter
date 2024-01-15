@@ -21,9 +21,14 @@ module load <%= context.modules %>
 module list
 <%- end -%>
 
+# Set working directory to notebook root directory
+cd "${NOTEBOOK_ROOT}"
+
 # Benchmark info
 echo "TIMING - Starting jupyter at: $(date)"
 
 # Launch the Jupyter Notebook Server
 set -x
-jupyter notebook --config="${CONFIG_FILE}" <%= context.extra_jupyter_args %>
+jupyter <%= context.mode == "1" ? "lab" : "notebook" %> \
+    --config="${CONFIG_FILE}" \
+    <%= context.extra_jupyter_args %>
