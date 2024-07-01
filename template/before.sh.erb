@@ -60,3 +60,7 @@ c.NotebookApp.notebook_dir = '${NOTEBOOK_ROOT}'
 c.NotebookApp.disable_check_xsrf = True
 EOL
 )
+
+# set timeout for server to start
+wait_port_timeout=<%= context.wait_port_timeout.blank? ? 60 : context.wait_port_timeout %>
+export wait_port_timeout
